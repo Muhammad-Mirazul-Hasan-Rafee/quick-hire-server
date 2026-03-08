@@ -60,6 +60,15 @@ async function run() {
      res.send(result);
     });
 
+    // Get all application (o to many)
+    app.get('/job-application' , async(req , res)=>{
+      const email = req.query.email;
+      const query = {applicant_email: email};
+      const result = await jobApplicationCollection.find(query).toArray();
+      res.send(result);
+
+    });
+
 
 
 
