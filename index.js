@@ -75,6 +75,9 @@ async function run() {
           application.title = job.title;
           application.company = job.company;
           application.company_logo = job.company_logo;
+          application.location = job.location;
+          application.category = job.category;
+          application.applicationDeadline = job.applicationDeadline;
         }
       }
 
@@ -83,14 +86,14 @@ async function run() {
 
     });
 
-// 59-9
-
-
-
-
-
-
-
+    // Delete application
+   
+app.delete("/jobs/:id" , async(req , res)=>{
+  const id = req.params.id;
+  const query = {_id: new ObjectId(id)};
+  const deleteApplication = await jobApplicationCollection.deleteOne(query);
+  res.send(deleteApplication);
+});
 
   } finally {
     // Ensures that the client will close when you finish/error
@@ -106,3 +109,8 @@ app.listen(port, () => {
     `Quick Hire is running for job seekers and reqruiters on port: ${port}`
   );
 });
+
+
+
+
+
