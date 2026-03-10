@@ -33,9 +33,7 @@ async function run() {
     const jobApplicationCollection = client.db("quichire").collection("job_applications");
     const roleCollection = client.db("quichire").collection("users");
     // job related APIs ( List all jobs )
-
    
-
     app.get("/jobs", async (req, res) => {
       const cursor = jobsCollection.find();
       const result = await cursor.toArray();
@@ -47,6 +45,13 @@ async function run() {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await jobsCollection.findOne(query);
+      res.send(result);
+    });
+
+    // create job
+    app.post('/jobs' , async(req , res)=>{
+      const newJob = req.body;
+      const result = await jobsCollection.insertOne(newJob);
       res.send(result);
     });
 
